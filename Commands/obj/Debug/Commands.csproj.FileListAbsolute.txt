@@ -1,0 +1,9 @@
+c:\Program Files\Tecnomatix_13.0\eMPower\DotNetCommands\Commands.dll
+c:\users\karol.szram\documents\visual studio 2015\Projects\Commands\Commands\obj\Debug\Commands.dll
+c:\users\karol.szram\documents\visual studio 2015\Projects\Commands\Commands\obj\Debug\Commands.pdb
+C:\Users\karol.szram\Desktop\dotnet\Commands.dll
+C:\Users\karol.szram\Desktop\dotnet\Commands.pdb
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\Commands\Commands\obj\Debug\Commands.csproj.GenerateResource.Cache
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\Commands\Commands\obj\Debug\Commands.csprojResolveAssemblyReference.cache
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\Commands\Commands\obj\Debug\Commands.TxRobotAxisForm.resources
+C:\Program Files\Tecnomatix_13.0\eMPower\DotNetCommands\Commands.pdb
