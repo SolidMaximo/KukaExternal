@@ -11,6 +11,7 @@ using Tecnomatix.Engineering.Ui;
 using Tecnomatix.Engineering;
 using System.Text.RegularExpressions;
 using System.IO;
+using KukaExternal;
 
 namespace Commands
 {
@@ -38,11 +39,6 @@ namespace Commands
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
         private void m_robotPicker_Picked(object sender, TxObjEditBoxCtrl_PickedEventArgs args)
         {
             UpdateUI();
@@ -68,7 +64,12 @@ namespace Commands
                 m_txtExternalID.Text = robot.ProcessModelId.ExternalId;
                 string id = robot.ProcessModelId.ExternalId;
                 string root = TxApplication.SystemRootDirectory;
-                string madaRoot = root + "\\" + "robotsmachinedatafiles" +"\\"+id+ @"\KRC\R1\Mada\$machine.dat";              
+                string madaRoot = root + "\\" + "robotsmachinedatafiles" +"\\"+id+ @"\KRC\R1\Mada\$machine.dat";
+                madaRoot = madaRoot.Replace("\\\\", "\\");
+                if (!File.Exists(madaRoot)) madaRoot = madaRoot.Replace("\\KRC", "");
+
+                if (!File.Exists(madaRoot)) madaRoot = madaRoot.Replace("\\Mada", "");
+
 
                 cPath.Text = madaRoot;
                 Read(madaRoot);
@@ -101,7 +102,7 @@ namespace Commands
         {
             OpenFileDialog ofd = new OpenFileDialog();
             int index = 7, j = 0;
-            if (File.Exists(path))
+            if (File.Exists(path) )
             {
                 string[] tab = System.IO.File.ReadAllLines(path);
                 TextBox[] array = { Lower7, Lower8, Lower9, Lower10, Lower11, Lower12, Upper7, Upper8, Upper9, Upper10, Upper11, Upper12 };
@@ -142,7 +143,7 @@ namespace Commands
                 return tab;
             }
             else
-            MessageBox.Show("File does not exists. Set correct path", "Error", MessageBoxButtons.OK);
+            MessageBox.Show("File does not exists in default path. Set correct path of KUKA $machine.dat file.", "Error", MessageBoxButtons.OK);
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 path = ofd.FileName;
@@ -154,6 +155,10 @@ namespace Commands
 
         private void WriteAsBtn_Click(object sender, EventArgs e)
         {
+            exportFile();
+        }
+        public void exportFile()
+        {
             if (File.Exists(cPath.Text) == true)
             {
                 string[] values = { Lower7.Text, Lower8.Text, Lower9.Text, Lower10.Text, Lower11.Text, Lower12.Text,
@@ -163,24 +168,30 @@ namespace Commands
                     MessageBox.Show("Values are invaild", "Error", MessageBoxButtons.OK);
                 else
                 {
-
-                    FolderBrowserDialog fbd = new FolderBrowserDialog();
-                    fbd.SelectedPath = ePath.Text;
-
-                    if (fbd.ShowDialog() == DialogResult.OK)
+                    if (!Directory.Exists(ePath.Text))
                     {
-                        ePath.Text = fbd.SelectedPath;
-                        string path = fbd.SelectedPath + "\\$machine.dat";
+                        FolderBrowserDialog fbd = new FolderBrowserDialog();
+                        fbd.SelectedPath = ePath.Text;
+
+                        if (fbd.ShowDialog() == DialogResult.OK)
+                        {
+                            ePath.Text = fbd.SelectedPath;
+                            string path = fbd.SelectedPath + "\\$machine.dat";
+                            Write(Read(this.cPath.Text), values, path);
+                        }
+                    }
+                    else
+                    {
+                        string path = ePath.Text + "\\$machine.dat";
                         Write(Read(this.cPath.Text), values, path);
                     }
-
                 }
             }
             else
-                MessageBox.Show("Path does not exists!", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Before export $machine.dat load correct file", "Error", MessageBoxButtons.OK);
+
 
         }
-
 
         private void Write(string[] tab, string[] values, string path )
         {
@@ -236,7 +247,7 @@ namespace Commands
                 }
             }
             else
-                MessageBox.Show("Path does not exists!", "Error", MessageBoxButtons.OK);
+                MessageBox.Show("Path does not exists! Select correct path of KUKA $machine.dat file.", "Error", MessageBoxButtons.OK);
 
         }
 
@@ -376,11 +387,44 @@ namespace Commands
 
         }
 
-        private void Help_Click(object sender, EventArgs e)
+
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("•Read button - program reads current values from file in “current path” without saving.\n\n•Write button – Saves given values in robot $machine.dat file \n\n•Export button -  $machine.dat can be also exported to selected path. Export path can be selected or pasted to “export path” section. To confirm export you have to click Export, select path and confirm by clicking ok.\n"
+
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ePath_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!Directory.Exists(ePath.Text))
+            {
+                FolderBrowserDialog fbd = new FolderBrowserDialog();
+                fbd.SelectedPath = ePath.Text;
+                if (fbd.ShowDialog() == DialogResult.OK)
+                {
+                    ePath.Text = fbd.SelectedPath;
+
+                }
+            }
+
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("•Read button - program reads current values from file in “current path” without saving.\n\n•Write button – saves given values in robot $machine.dat file. \n\n•Export button -  $machine.dat can be also exported to selected path. Export path can be selected or pasted to “export path” section. To confirm export you have to click Export, select path and confirm by clicking ok.\n"
 , "Help", MessageBoxButtons.OK);
 
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            AboutBox ab = new AboutBox();
+            ab.ShowDialog(this);
         }
     }
 }

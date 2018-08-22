@@ -25,6 +25,13 @@ namespace Commands
                 return "KUKA external";
             }
         }
+        public override string Bitmap
+        {
+            get
+            {
+                return "Plugomatix.bmp";
+            }
+        }
 
         public override void Execute(object cmdParams)
         {
