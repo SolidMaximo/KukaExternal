@@ -1,0 +1,8 @@
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\bin\Release\KukaExternal.dll
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\bin\Release\KukaExternal.pdb
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\KukaExternal.Properties.Resources.resources
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\KukaExternal.StringTable.resources
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\Commands.TxRobotAxisForm.resources
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\KukaExternal.csproj.GenerateResource.Cache
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\KukaExternal.dll
+C:\Users\karol.szram\Documents\Visual Studio 2015\Projects\KukaExternal\Commands\obj\Release\KukaExternal.pdb
